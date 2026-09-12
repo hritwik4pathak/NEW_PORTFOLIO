@@ -26,54 +26,86 @@ interface VercelDeploymentsResponse {
 }
 
 export async function getVercelProjects(): Promise<VercelProject[]> {
-  const response = await fetch(
-    "https://api.vercel.com/v9/projects",
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.VERCEL_TOKEN}`,
-      },
-      next: {
-        revalidate: 3600,
-      },
-    }
-  );
+  const token = process.env.VERCEL_TOKEN;
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch Vercel projects");
+  // Don't crash the dashboard if the token is missing.
+  if (!token) {
+    console.error("VERCEL_TOKEN is not configured.");
+    return [];
   }
 
-  const data: VercelProjectsResponse = await response.json();
+  try {
+    const response = await fetch(
+      "https://api.vercel.com/v9/projects",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
+      }
+    );
 
-  const projects = await Promise.all(
-    data.projects.map(async (project) => {
-      const deploymentResponse = await fetch(
-        `https://api.vercel.com/v6/deployments?projectId=${project.id}&limit=1&target=production`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.VERCEL_TOKEN}`,
-          },
-          next: {
-            revalidate: 3600,
-          },
-        }
+    if (!response.ok) {
+      console.error(
+        "Vercel API error:",
+        response.status,
+        response.statusText
       );
 
-      let deploymentUrl: string | null = null;
+      return [];
+    }
 
-      if (deploymentResponse.ok) {
-        const deploymentData: VercelDeploymentsResponse =
-          await deploymentResponse.json();
+    const data: VercelProjectsResponse =
+      await response.json();
 
-        deploymentUrl =
-          deploymentData.deployments[0]?.url ?? null;
-      }
+    const projects = await Promise.all(
+      data.projects.map(async (project) => {
+        try {
+          const deploymentResponse = await fetch(
+            `https://api.vercel.com/v6/deployments?projectId=${project.id}&limit=1&target=production`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              cache: "no-store",
+            }
+          );
 
-      return {
-        ...project,
-        deploymentUrl,
-      };
-    })
-  );
+          let deploymentUrl: string | null = null;
 
-  return projects;
+          if (deploymentResponse.ok) {
+            const deploymentData: VercelDeploymentsResponse =
+              await deploymentResponse.json();
+
+            deploymentUrl =
+              deploymentData.deployments[0]?.url ?? null;
+          }
+
+          return {
+            ...project,
+            deploymentUrl,
+          };
+        } catch (error) {
+          console.error(
+            `Failed to fetch deployment for ${project.name}:`,
+            error
+          );
+
+          return {
+            ...project,
+            deploymentUrl: null,
+          };
+        }
+      })
+    );
+
+    return projects;
+  } catch (error) {
+    console.error(
+      "Failed to fetch Vercel projects:",
+      error
+    );
+
+    return [];
+  }
 }

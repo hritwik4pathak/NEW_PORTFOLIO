@@ -1,4 +1,10 @@
-import { getGithubProfile, getGithubRepositories } from "@/lib/github";
+export const dynamic = "force-dynamic";
+
+import {
+  getGithubProfile,
+  getGithubRepositories,
+} from "@/lib/github";
+
 import { getVercelProjects } from "@/lib/vercel";
 
 import Dashboard from "@/components/dashboard/Dashboard";
@@ -7,7 +13,9 @@ import Topbar from "@/components/layout/Topbar";
 
 export default async function Home() {
   const profile = await getGithubProfile();
+
   const repositories = await getGithubRepositories();
+
   const vercelProjects = await getVercelProjects();
 
   return (
