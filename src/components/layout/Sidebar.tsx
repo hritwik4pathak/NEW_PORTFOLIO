@@ -44,9 +44,12 @@ export default function Sidebar() {
 
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-zinc-800 bg-zinc-950">
-      
+
       {/* Logo / Name */}
-      <div className="flex h-22.5 flex-col justify-center border-b border-zinc-800 px-6">
+      <Link
+        href="/"
+        className="flex h-[90px] flex-col justify-center border-b border-zinc-800 px-6 transition hover:bg-zinc-900/50"
+      >
         <h1 className="text-xl font-semibold text-white">
           Hritwik Pathak
         </h1>
@@ -54,7 +57,7 @@ export default function Sidebar() {
         <p className="text-sm text-zinc-500">
           Developer Portfolio
         </p>
-      </div>
+      </Link>
 
       {/* Navigation */}
       <nav className="px-4 py-6">
@@ -67,9 +70,8 @@ export default function Sidebar() {
             const Icon = item.icon;
 
             const isActive =
-              item.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(item.href);
+              pathname === item.href ||
+              pathname.startsWith(`${item.href}/`);
 
             return (
               <Link
