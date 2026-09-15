@@ -43,7 +43,7 @@ export default function ContactPanel() {
       {/* RIGHT SIDE */}
       <div className="relative pt-16">
         {/* Mascot */}
-        <div className="absolute left-1/2 top-0 z-20 h-[180px] w-[330px] -translate-x-1/2 [&_.cursor-mascot]:!top-[-55px]">
+        <div className="absolute left-1/2 top-0 z-20 h-45 w-82.5 -translate-x-1/2 [&_.cursor-mascot]:!top-[-22px]">
             <CursorMascot />
         </div>
 
