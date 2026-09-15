@@ -43,19 +43,8 @@ export default function ContactPanel() {
       {/* RIGHT SIDE */}
       <div className="relative pt-16">
         {/* Mascot */}
-        <div
-          className="
-            absolute
-            left-1/2
-            top-8
-            z-20
-            h-[180px]
-            w-[330px]
-            -translate-x-1/2
-            [&_.cursor-mascot]:!top-[-55px]
-          "
-        >
-          <CursorMascot />
+        <div className="absolute left-1/2 top-0 z-20 h-[180px] w-[330px] -translate-x-1/2 [&_.cursor-mascot]:!top-[-55px]">
+            <CursorMascot />
         </div>
 
         {/* CONTACT CARD */}
@@ -80,7 +69,7 @@ export default function ContactPanel() {
           <div className="mt-7 space-y-3">
             {/* Email */}
             <a
-              href="mailto:your-email@example.com"
+              href="mailto:hritwikpathak4@gmail.com"
               className="group flex items-center gap-4 rounded-xl border border-zinc-800 bg-black p-4 transition-all duration-200 hover:border-zinc-600 hover:bg-zinc-900"
             >
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900 text-zinc-400 transition group-hover:border-zinc-700 group-hover:text-white">
@@ -93,7 +82,7 @@ export default function ContactPanel() {
                 </p>
 
                 <p className="mt-1 truncate text-sm text-zinc-500">
-                  your-email@example.com
+                  hritwikpathak4@gmail.com
                 </p>
               </div>
 
