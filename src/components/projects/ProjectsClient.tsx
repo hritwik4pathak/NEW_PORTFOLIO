@@ -75,19 +75,19 @@ export default function ProjectsClient({
   return (
     <div>
       {/* Filters */}
-      <div className="mb-6 grid gap-3 md:grid-cols-[1fr_auto_auto]">
+      <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-[1fr_auto_auto]">
         <input
           type="text"
           placeholder="Search projects..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="h-11 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-4 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-zinc-600"
+          className="h-11 w-full min-w-0 rounded-lg border border-zinc-800 bg-zinc-950 px-4 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-zinc-600"
         />
 
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
-          className="h-11 rounded-lg border border-zinc-800 bg-zinc-950 px-4 text-sm text-zinc-300 outline-none focus:border-zinc-600"
+          className="h-11 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-4 text-sm text-zinc-300 outline-none focus:border-zinc-600"
         >
           {languages.map((lang) => (
             <option key={lang} value={lang}>
@@ -99,7 +99,7 @@ export default function ProjectsClient({
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value)}
-          className="h-11 rounded-lg border border-zinc-800 bg-zinc-950 px-4 text-sm text-zinc-300 outline-none focus:border-zinc-600"
+          className="h-11 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-4 text-sm text-zinc-300 outline-none focus:border-zinc-600"
         >
           <option value="updated">Recently Updated</option>
           <option value="stars">Most Stars</option>
@@ -116,7 +116,7 @@ export default function ProjectsClient({
 
       {/* Projects */}
       {filteredProjects.length > 0 ? (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {filteredProjects.map((project) => (
             <ProjectCard
               key={project.id}
@@ -125,12 +125,13 @@ export default function ProjectsClient({
           ))}
         </div>
       ) : (
-        <div className="rounded-xl border border-zinc-800 bg-zinc-950 p-10 text-center">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-950 p-8 text-center sm:p-10">
           <p className="text-sm text-zinc-500">
             No projects found.
           </p>
 
           <button
+            type="button"
             onClick={() => {
               setSearch("");
               setLanguage("All");

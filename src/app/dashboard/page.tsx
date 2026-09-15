@@ -24,7 +24,7 @@ export default async function Home() {
 
       <Topbar />
 
-      <main className="ml-64 pt-20">
+      <main className="ml-0 pt-20 lg:ml-64">
         <div className="mx-auto max-w-7xl p-8">
           <Dashboard
             profile={profile}

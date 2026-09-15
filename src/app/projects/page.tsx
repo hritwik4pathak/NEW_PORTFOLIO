@@ -9,7 +9,6 @@ export default async function ProjectsPage() {
 
   return (
     <div className="min-h-screen bg-black">
-
       {/* Sidebar */}
       <Sidebar />
 
@@ -17,14 +16,11 @@ export default async function ProjectsPage() {
       <Topbar />
 
       {/* Main Content */}
-      <main className="ml-64 pt-20">
-        <div className="mx-auto max-w-7xl p-8">
-
+      <main className="ml-0 pt-20 lg:ml-64">
+        <div className="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
           {/* Header */}
           <div className="mb-8">
-            <p className="text-sm text-zinc-500">
-              Portfolio / Projects
-            </p>
+            
 
             <h1 className="mt-1 text-3xl font-semibold tracking-tight text-white">
               My Projects
@@ -37,10 +33,8 @@ export default async function ProjectsPage() {
 
           {/* Search + Filter + Projects */}
           <ProjectsClient repositories={repositories} />
-
         </div>
       </main>
-
     </div>
   );
 }

@@ -30,26 +30,23 @@ export default function Dashboard({
 }: DashboardProps) {
   return (
     <div className="space-y-8">
-
       {/* Welcome */}
       <div>
         <p className="text-sm text-zinc-500">
-          Welcome 
+          Welcome
         </p>
 
-        <h1 className="mt-1 text-3xl font-semibold tracking-tight text-white">
+        <h1 className="mt-1 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
           {profile.name || "Hritwik"}
         </h1>
 
-        <p className="mt-2 text-zinc-400">
-          Here&s an overview of my development work and projects.
+        <p className="mt-2 text-sm text-zinc-400 sm:text-base">
+          Here&apos;s an overview of my development work and projects.
         </p>
       </div>
 
-
       {/* Stats */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
           title="Projects"
           value={profile.public_repos}
@@ -73,15 +70,11 @@ export default function Dashboard({
           value="Available"
           description="Open to opportunities"
         />
-
       </div>
-
 
       {/* GitHub Projects */}
       <section>
-
-        <div className="mb-4 flex items-center justify-between">
-
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-lg font-semibold text-white">
               Featured Projects
@@ -96,33 +89,25 @@ export default function Dashboard({
             href="https://github.com/hritwik4pathak"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-zinc-400 hover:text-white"
+            className="self-start text-sm text-zinc-400 hover:text-white sm:self-auto"
           >
             View all →
           </a>
-
         </div>
 
-
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
           {repositories.slice(0, 6).map((project) => (
             <ProjectCard
               key={project.id}
               project={project}
             />
           ))}
-
         </div>
-
       </section>
-
 
       {/* Vercel Projects */}
       <section>
-
         <div className="mb-4">
-
           <h2 className="text-lg font-semibold text-white">
             Live Deployments
           </h2>
@@ -130,33 +115,23 @@ export default function Dashboard({
           <p className="text-sm text-zinc-500">
             Projects deployed on Vercel.
           </p>
-
         </div>
 
-
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
           {vercelProjects.slice(0, 6).map((project) => (
             <div
               key={project.id}
               className="rounded-xl border border-zinc-800 bg-zinc-950 p-5 transition hover:border-zinc-600 hover:bg-zinc-900"
             >
-
-              {/* Project name */}
-              <h3 className="text-lg font-semibold text-white">
+              <h3 className="break-words text-lg font-semibold text-white">
                 {project.name}
               </h3>
 
-
-              {/* Framework */}
               <p className="mt-2 text-sm text-zinc-500">
                 {project.framework || "Web Project"}
               </p>
 
-
-              {/* Deployment link */}
               <div className="mt-6">
-
                 {project.deploymentUrl ? (
                   <a
                     href={
@@ -175,16 +150,11 @@ export default function Dashboard({
                     No production deployment
                   </span>
                 )}
-
               </div>
-
             </div>
           ))}
-
         </div>
-
       </section>
-
     </div>
   );
 }
